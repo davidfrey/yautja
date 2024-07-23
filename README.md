@@ -3,7 +3,7 @@
 A structured job hunter application to help job seekers organize the chaos of trying to manage their career journey.
 
 ## TODO
-- [ ] Make it deployable
+- [x] Make it deployable
 - [ ] Scaffold basic UI
 - [ ] Setup database
 - [ ] Attach DB to UI

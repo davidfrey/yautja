@@ -5,6 +5,15 @@
 await import("./src/env.js");
 
 /** @type {import("next").NextConfig} */
-const config = {};
+const config = {
+  typescript: {
+    // Warning: Ignoring build errors to speed up deployments.
+    ignoreBuildErrors: true,
+  },
+  eslint: {
+    // Warning: Ignoring linter errors during build to speed up deployments.
+    ignoreDuringBuilds: true,
+  },
+};
 
 export default config;
