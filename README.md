@@ -3,9 +3,10 @@
 A structured job hunter application to help job seekers organize the chaos of trying to manage their career journey.
 
 ## TODO
+
 - [x] Make it deployable
-- [ ] Scaffold basic UI
-- [ ] Setup database
+- [x] Scaffold basic UI
+- [x] Setup database
 - [ ] Attach DB to UI
 - [ ] Add Authentication
 - [ ] Begin Building Data Model
@@ -14,5 +15,3 @@ A structured job hunter application to help job seekers organize the chaos of tr
 - [ ] Add Opportunity Research/Ranking
 - [ ] Add Job Applications
 - [ ] Add Resumes
-
-
