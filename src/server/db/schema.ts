@@ -9,6 +9,7 @@ import {
   timestamp,
   varchar,
 } from "drizzle-orm/pg-core";
+import { url } from "inspector";
 import { type AdapterAccount } from "next-auth/adapters";
 
 /**
@@ -19,11 +20,21 @@ import { type AdapterAccount } from "next-auth/adapters";
  */
 export const createTable = pgTableCreator((name) => `yautja_${name}`);
 
-export const posts = createTable(
-  "post",
+export const opportunities = createTable(
+  "opportunities",
   {
     id: serial("id").primaryKey(),
-    name: varchar("name", { length: 256 }),
+    url: varchar("url", { length: 1024 }).notNull(),
+    companyName: varchar("company_name", { length: 256 }).notNull(),
+    companyDescription: varchar("company_description", {
+      length: 1024,
+    }).notNull(),
+    jobTitle: varchar("job_title", { length: 256 }).notNull(),
+    jobDescription: varchar("job_description", { length: 256 }).notNull(),
+    jobType: varchar("job_type", { length: 256 }).notNull(),
+    location: varchar("location", { length: 256 }).notNull(),
+    baseSalary: varchar("base_salary", { length: 256 }).notNull(),
+    benefits: varchar("benefits", { length: 256 }).notNull(),
     createdById: varchar("created_by", { length: 255 })
       .notNull()
       .references(() => users.id),
@@ -31,13 +42,25 @@ export const posts = createTable(
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
     updatedAt: timestamp("updated_at", { withTimezone: true }).$onUpdate(
-      () => new Date()
+      () => new Date(),
     ),
   },
   (example) => ({
     createdByIdIdx: index("created_by_idx").on(example.createdById),
-    nameIndex: index("name_idx").on(example.name),
-  })
+    urlIndex: index("url_idx").on(example.url),
+    companyNameIndex: index("company_name_idx").on(example.companyName),
+    companyDescriptionIndex: index("company_description_idx").on(
+      example.companyDescription,
+    ),
+    jobTitleIndex: index("job_title_idx").on(example.jobTitle),
+    jobDescriptionIndex: index("job_description_idx").on(
+      example.jobDescription,
+    ),
+    jobTypeIndex: index("job_type_idx").on(example.jobType),
+    locationIndex: index("location_idx").on(example.location),
+    baseSalaryIndex: index("base_salary_idx").on(example.baseSalary),
+    benefitsIndex: index("benefits_idx").on(example.benefits),
+  }),
 );
 
 export const users = createTable("user", {
@@ -84,7 +107,7 @@ export const accounts = createTable(
       columns: [account.provider, account.providerAccountId],
     }),
     userIdIdx: index("account_user_id_idx").on(account.userId),
-  })
+  }),
 );
 
 export const accountsRelations = relations(accounts, ({ one }) => ({
@@ -107,7 +130,7 @@ export const sessions = createTable(
   },
   (session) => ({
     userIdIdx: index("session_user_id_idx").on(session.userId),
-  })
+  }),
 );
 
 export const sessionsRelations = relations(sessions, ({ one }) => ({
@@ -126,5 +149,5 @@ export const verificationTokens = createTable(
   },
   (vt) => ({
     compoundKey: primaryKey({ columns: [vt.identifier, vt.token] }),
-  })
+  }),
 );
