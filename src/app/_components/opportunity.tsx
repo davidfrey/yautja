@@ -4,6 +4,40 @@ import { useState } from "react";
 
 import { api } from "~/trpc/react";
 
+export function AllOpportunities() {
+  const [allOpportunities] =
+    api.opportunity.allOpportunities.useSuspenseQuery();
+
+  return allOpportunities ? (
+    <div className="flex w-full max-w-prose rounded-lg bg-white p-4 text-black">
+      <table className="w-full table-auto">
+        <thead>
+          <tr>
+            <th className="text-left">Company Name</th>
+            <th className="text-left">Job Title</th>
+            <th className="text-center">Location</th>
+            <th className="text-right">Base Salary</th>
+          </tr>
+        </thead>
+        <tbody>
+          {allOpportunities.map((opportunity) => (
+            <tr key={opportunity.id} className="border-t hover:bg-gray-100">
+              <td className="text-left">{opportunity.companyName}</td>
+              <td className="text-left">
+                <a href={opportunity.url}>{opportunity.jobTitle}</a>
+              </td>
+              <td className="text-center">{opportunity.location}</td>
+              <td className="text-right">{opportunity.baseSalary}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  ) : (
+    <p>You have no opportunities yet.</p>
+  );
+}
+
 export function LatestOpportunity() {
   const [latestOpportunity] = api.opportunity.getLatest.useSuspenseQuery();
 

@@ -57,4 +57,10 @@ export const opportunityRouter = createTRPCRouter({
   getSecretMessage: protectedProcedure.query(() => {
     return "you can now see this secret message!";
   }),
+
+  allOpportunities: publicProcedure.query(({ ctx }) => {
+    return ctx.db.query.opportunities.findMany({
+      orderBy: (opportunities, { desc }) => [desc(opportunities.createdAt)],
+    });
+  }),
 });
