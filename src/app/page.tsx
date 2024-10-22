@@ -7,6 +7,8 @@ import {
 import { getServerAuthSession } from "~/server/auth";
 import { api, HydrateClient } from "~/trpc/server";
 
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   const hello = await api.opportunity.hello({ text: "from tRPC" });
   const session = await getServerAuthSession();
