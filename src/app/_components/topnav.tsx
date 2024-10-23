@@ -1,8 +1,9 @@
 "use client";
-
+import Link from "next/link";
+import { type ScriptProps } from "next/script";
 import { useState } from "react";
 
-function TopNav() {
+function TopNav({ session }: { session: ScriptProps["session"] }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -75,12 +76,12 @@ function TopNav() {
           </div>
           <div>
             <div className="text-xs">
-              <a
-                href="/"
+              <Link
+                href={session ? "/api/auth/signout" : "/api/auth/signin"}
                 className="block text-sky-200 hover:text-white lg:inline-block"
               >
-                Sign In
-              </a>
+                {session ? "Sign Out" : "Sign In"}
+              </Link>
             </div>
           </div>
         </div>
