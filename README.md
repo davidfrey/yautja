@@ -8,7 +8,7 @@ A structured job hunter application to help job seekers organize the chaos of tr
 - [x] Scaffold basic UI
 - [x] Setup database
 - [x] Attach DB to UI
-- [ ] Add Authentication
+- [x] Add Authentication
 - [ ] Begin Building Data Model
 - [ ] Stub out Sections and Routes
 - [ ] Add Opportunities
